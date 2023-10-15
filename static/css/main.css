@@ -1,28 +1,43 @@
 main > .container {
-  padding: 60px 15px 0;
+  padding: 70px 15px 0;
 }
 
 .main-content {
-    background-color: lightgray;
+
 }
 
 .question {
     border: 1px solid grey;
     margin-top: 30px;
+    margin-bottom: 20px;
     border-radius: 10px;
     padding: 20px;
 }
 
 .question-image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .question-title {
     font-size: 30px;
-    font-family: Helvetica;
+    font-family: Helvetica, serif;
     font-weight: bold;
 }
+
+.question-text {
+    font-size: 20px;
+    font-family: Helvetica, serif;
+    font-weight: normal;
+}
+
+.question-points{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #0a58ca;
+}
+
+
 
 .navbar-user-image,
 .navbar-overflow-image {
@@ -33,6 +48,16 @@ main > .container {
 .user-login {
     color: white;
     font-size: 20px;
-    font-family: Helvetica;
+    font-family: Helvetica, serif;
     font-weight: bold;
+}
+
+.tags {
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 250px;
+}
+
+.tag {
+    margin: 5px;
 }
