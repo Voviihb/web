@@ -1,0 +1,38 @@
+main > .container {
+  padding: 60px 15px 0;
+}
+
+.main-content {
+    background-color: lightgray;
+}
+
+.question {
+    border: 1px solid grey;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.question-image {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.question-title {
+    font-size: 30px;
+    font-family: Helvetica;
+    font-weight: bold;
+}
+
+.navbar-user-image,
+.navbar-overflow-image {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.user-login {
+    color: white;
+    font-size: 20px;
+    font-family: Helvetica;
+    font-weight: bold;
+}
