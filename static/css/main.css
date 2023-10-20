@@ -1,5 +1,5 @@
 main > .container {
-  padding: 70px 15px 0;
+    padding: 70px 15px 0;
 }
 
 .main-content {
@@ -14,7 +14,7 @@ main > .container {
     padding: 20px;
 }
 
-.question-image {
+.avatar-image {
     max-width: 150px;
     max-height: 150px;
 }
@@ -31,12 +31,12 @@ main > .container {
     font-weight: normal;
 }
 
-.question-points{
+.question-points,
+.answer-points {
     font-size: 20px;
     font-weight: bolder;
     color: #0a58ca;
 }
-
 
 
 .navbar-user-image,
@@ -64,4 +64,24 @@ main > .container {
 
 .button-ask {
     min-width: 100px;
+}
+
+.question-extended {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.answer {
+    border: 1px solid grey;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.answer-text {
+    font-size: 20px;
+    font-family: Helvetica, serif;
+    font-weight: normal;
 }

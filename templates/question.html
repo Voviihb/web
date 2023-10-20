@@ -1,7 +1,7 @@
 <html lang="en" class="h-100">
 <head>
     <meta charset="utf-8">
-    <title>Main page</title>
+    <title>Question</title>
 
     <!-- Bootstrap core CSS -->
     <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
@@ -91,9 +91,8 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-8">
-                <h1>New questions</h1>
-                <div class="row question">
-                    <div class="col-3 my-auto">
+                <div class="row question-extended">
+                    <div class="col-3">
                         <img class="avatar-image" src="../static/img/vk_logo.png" alt="image">
                         <div class="row mt-2 ">
                             <div class="col-4">
@@ -108,17 +107,17 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href=""> First question </a></div>
+                        <div class="question-title"><h1>First question</h1></div>
                         <div class="question-text">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Nunc faucibus a pellentesque sit amet porttitor eget dolor.
-                            Diam maecenas sed enim ut. Ut sem nulla pharetra diam sit.
+                            Diam maecenas sed enim ut. Ut sem nulla pharetra diam sit. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.
                         </div>
                         <div class="row">
-                            <div class="col-4">
-                                <a href="#"> answer (3) </a>
-                            </div>
-                            <div class="col-8">
+                            <div class="col-12">
                                 Tags:
                                 <span class="mx-1"> <a href="#"> Python </a> </span>
                                 <span class="mx-1"> <a href="#"> AI </a> </span>
@@ -127,12 +126,14 @@
                     </div>
                 </div>
 
-                <div class="row question">
+                <hr class="mb-1">
+
+                <div class="row answer">
                     <div class="col-3 my-auto">
                         <img class="avatar-image" src="../static/img/vk_logo.png" alt="image">
                         <div class="row mt-2 ">
                             <div class="col-4">
-                                <div class="question-points d-flex justify-content-center">5</div>
+                                <div class="answer-points d-flex justify-content-center">8</div>
                             </div>
                             <div class="col-8">
                                 <div class="btn-group">
@@ -143,31 +144,38 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href=""> Second question </a></div>
-                        <div class="question-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Nunc faucibus a pellentesque sit amet porttitor eget dolor.
-                            Diam maecenas sed enim ut. Ut sem nulla pharetra diam sit.
+                        <div class="answer-text">
+                            Vivamus vel elementum ante, sit amet tempor orci. Sed eu diam volutpat, vehicula dui nec,
+                            cursus nisl. Nullam vehicula, metus non ornare posuere, lectus tortor consequat nisi, vitae
+                            commodo dolor quam eget sem. Nunc eleifend sagittis convallis. Morbi vitae erat lobortis,
+                            pellentesque risus sit amet, euismod nisl.
                         </div>
+
                         <div class="row">
-                            <div class="col-4">
-                                <a href="#"> answer (3) </a>
-                            </div>
-                            <div class="col-8">
+                            <div class="col">
                                 Tags:
                                 <span class="mx-1"> <a href="#"> Python </a> </span>
                                 <span class="mx-1"> <a href="#"> AI </a> </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check my-1">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
+                                           checked>
+                                    <label class="form-check-label" for="flexCheckChecked">Correct answer</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row question">
+                <div class="row answer">
                     <div class="col-3 my-auto">
                         <img class="avatar-image" src="../static/img/vk_logo.png" alt="image">
                         <div class="row mt-2 ">
                             <div class="col-4">
-                                <div class="question-points d-flex justify-content-center">5</div>
+                                <div class="answer-points d-flex justify-content-center">4</div>
                             </div>
                             <div class="col-8">
                                 <div class="btn-group">
@@ -178,24 +186,46 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <div class="question-title"><a href=""> Third question </a></div>
-                        <div class="question-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Nunc faucibus a pellentesque sit amet porttitor eget dolor.
-                            Diam maecenas sed enim ut. Ut sem nulla pharetra diam sit.
+                        <div class="answer-text">
+                            Browser default checkboxes and radios are replaced with the help of .form-check, a series of
+                            classes for both input types that improves the layout and behavior of their HTML elements,
+                            that provide greater customization and cross browser consistency. Checkboxes are for
+                            selecting one or several options in a list, while radios are for selecting one option from
+                            many.
                         </div>
+
                         <div class="row">
-                            <div class="col-4">
-                                <a href="#"> answer (3) </a>
-                            </div>
-                            <div class="col-8">
+                            <div class="col">
                                 Tags:
                                 <span class="mx-1"> <a href="#"> Python </a> </span>
                                 <span class="mx-1"> <a href="#"> AI </a> </span>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check my-1">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckUnchecked">
+                                    <label class="form-check-label" for="flexCheckUnchecked">Correct answer</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <hr class="mb-1">
+
+                <div class="row">
+                    <form>
+                        <div class="my-3">
+                            <label for="inputAnswer" class="form-label">Enter your answer here</label>
+                            <textarea type="text" class="form-control" id="inputAnswer"> </textarea>
+                            <div id="answerHelp" class="form-text">Please respect the opinions of other users</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary button-ask">Answer!</button>
+                    </form>
+                </div>
+
+
             </div>
 
             <div class="col-4">
@@ -224,22 +254,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group me-2" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-outline-secondary">1</button>
-                        <button type="button" class="btn btn-outline-secondary">2</button>
-                        <button type="button" class="btn btn-outline-secondary">3</button>
-                        <button type="button" class="btn btn-outline-secondary">4</button>
-                    </div>
-                    <div class="btn-group me-2" role="group" aria-label="Second group">
-                        <button type="button" class="btn btn-outline-secondary">...</button>
-                    </div>
-                    <div class="btn-group" role="group" aria-label="Third group">
-                        <button type="button" class="btn btn-outline-secondary">53</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </main>
