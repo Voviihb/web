@@ -85,3 +85,8 @@ main > .container {
     font-family: Helvetica, serif;
     font-weight: normal;
 }
+
+.login-button,
+.register-button {
+    font-size: large;
+}
