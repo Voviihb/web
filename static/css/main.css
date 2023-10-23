@@ -90,3 +90,19 @@ main > .container {
 .register-button {
     font-size: large;
 }
+
+.login-field,
+.password-field,
+.email-field,
+.file-field {
+    max-width: 300px;
+}
+
+.login-error,
+.registration-error,
+.settings-error,
+.ask-error {
+    color: red;
+    font-weight: bolder;
+    visibility: visible;
+}
