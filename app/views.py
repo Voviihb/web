@@ -44,3 +44,7 @@ def question(request, question_id):
         return render(request, 'question.html', {'question': item, 'answers': paginate(answers, 1)})
     except PageNotAnInteger:
         return render(request, 'question.html', {'question': item, 'answers': paginate(answers, 1)})
+
+
+def ask(request):
+    return render(request, 'ask.html')
