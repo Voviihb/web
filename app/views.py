@@ -48,3 +48,11 @@ def question(request, question_id):
 
 def ask(request):
     return render(request, 'ask.html')
+
+
+def login(request):
+    return render(request, 'login.html')
+
+def signup(request):
+    return render(request, 'signup.html')
+
