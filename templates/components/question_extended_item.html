@@ -1,0 +1,30 @@
+{% load static %}
+<div class="row question-extended">
+    <div class="col-3">
+        <img class="avatar-image" src="{% static '/img/vk_logo.png' %}" alt="image">
+        <div class="row mt-2 ">
+            <div class="col-4">
+                <div class="question-points d-flex justify-content-center">5</div>
+            </div>
+            <div class="col-8">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success btn-sm">+</button>
+                    <button type="button" class="btn btn-danger btn-sm">-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="question-title"><h2>{{ question.title }}</h2></div>
+        <div class="question-text">
+            {{ question.content }}
+        </div>
+        <div class="row">
+            <div class="col-12">
+                Tags:
+                <span class="mx-1"> <a href="#"> Python </a> </span>
+                <span class="mx-1"> <a href="#"> AI </a> </span>
+            </div>
+        </div>
+    </div>
+</div>
