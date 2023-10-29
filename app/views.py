@@ -6,7 +6,8 @@ QUESTIONS = [
     {
         'id': i,
         'title': f"Question {i}",
-        'content': f"Long long lorem ipsum content {i}"
+        'content': f"Long long lorem ipsum content {i}",
+        'tags': ['Python', 'AI', 'Django']
     } for i in range(100)
 ]
 
@@ -35,7 +36,7 @@ def question(request, question_id):
             'id': i,
             'correct': False,
             'content': f"Very informative answer {i}"
-        } for i in range(30)
+        } for i in range(50)
     ]
 
     try:
@@ -53,6 +54,35 @@ def ask(request):
 def login(request):
     return render(request, 'login.html')
 
+
 def signup(request):
     return render(request, 'signup.html')
 
+
+def settings(request):
+    return render(request, 'settings.html')
+
+
+def hot(request):
+    page = request.GET.get('page', 1)
+    try:
+        return render(request, 'hot.html', {'questions': paginate(QUESTIONS, page)})
+    except EmptyPage:
+        return render(request, 'hot.html', {'questions': paginate(QUESTIONS, 1)})
+    except PageNotAnInteger:
+        return render(request, 'hot.html', {'questions': paginate(QUESTIONS, 1)})
+
+
+def tag(request, tag_name):
+    page = request.GET.get('page', 1)
+    res = []
+    for item in QUESTIONS:
+        if tag_name in item['tags']:
+            res.append(item)
+
+    try:
+        return render(request, 'tag.html', {'tag': tag_name, 'questions': paginate(res, page)})
+    except EmptyPage:
+        return render(request, 'tag.html', {'questions': paginate(res, 1)})
+    except PageNotAnInteger:
+        return render(request, 'tag.html', {'questions': paginate(res, 1)})
