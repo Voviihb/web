@@ -17,6 +17,9 @@ def paginate(objects, page, per_page=10):
     return paginator.page(page).object_list
 
 
+# page -> request
+
+
 # Create your views here.
 def index(request):
     page = request.GET.get('page', 1)
@@ -30,12 +33,16 @@ def index(request):
 
 def question(request, question_id):
     page = request.GET.get('page', 1)
-    item = QUESTIONS[question_id]
+    try:
+        item = QUESTIONS[question_id]
+    except IndexError:
+        item = QUESTIONS[0]
     answers = [
         {
             'id': i,
             'correct': False,
-            'content': f"Very informative answer {i}"
+            'content': f"Very informative answer {i}",
+            'tags': item.get('tags')
         } for i in range(50)
     ]
 

@@ -22,8 +22,9 @@
         <div class="row">
             <div class="col">
                 Tags:
-                <span class="mx-1"> <a href="#"> Python </a> </span>
-                <span class="mx-1"> <a href="#"> AI </a> </span>
+                {% for tag in answer.tags %}
+                <span class="mx-1"> <a href="{% url 'tag' tag %}"> {{ tag }} </a> </span>
+                {% endfor %}
             </div>
         </div>
         <div class="row">
