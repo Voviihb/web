@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block content %}
-<h1>Hot questions</h1>
+<div class="row">
+    <div class="col-6">
+        <h1>Hot questions</h1>
+    </div>
+    <div class="col-6 d-flex bd-highlight">
+        <a href="{% url 'index' %}" class="link-primary top-link ms-auto my-auto"><h2>New questions</h2></a>
+    </div>
+</div>
 
 {% for question in questions %}
 {% include 'components/question_item.html' %}

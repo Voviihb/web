@@ -48,7 +48,7 @@
             <div class="col-8 navbar-collapse " id="navbarCollapse">
                 <ul class="navbar-nav mx-auto">
                     <li class="me-3">
-                        <button class="btn btn-primary" type="button">Ask question</button>
+                        <a href="{% url 'ask' %}" class="btn btn-primary">Ask question</a>
                     </li>
                     <li class="nav-item">
                         <form class="d-flex my-auto">
@@ -121,9 +121,17 @@
                     </ul>
                 </div>
             </div>
-            {% block paginator %}
+        </div>
+        <div class="row">
+            <div class="col-8">
+                {% block paginator %}
 
-            {% endblock %}
+                {% endblock %}
+
+                {% block additional %}
+
+                {% endblock %}
+            </div>
         </div>
     </div>
 </main>
