@@ -4,7 +4,7 @@
         <img class="avatar-image" src="{% static '/img/vk_logo.png' %}" alt="image">
         <div class="row mt-2 ">
             <div class="col-4">
-                <div class="question-points d-flex justify-content-center">5</div>
+                <div class="question-points d-flex justify-content-center"> {{ question.like }} </div>
             </div>
             <div class="col-8">
                 <div class="btn-group">
@@ -21,11 +21,11 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <a href="{% url 'question' question.id %}"> answer (3) </a>
+                <a href="{% url 'question' question.id %}"> answer ({{ question.cnt }}) </a>
             </div>
             <div class="col-8">
                 Tags:
-                {% for tag in question.tags %}
+                {% for tag in question.tags.all %}
                 <span class="mx-1"> <a href="{% url 'tag' tag %}"> {{ tag }} </a> </span>
                 {% endfor %}
             </div>

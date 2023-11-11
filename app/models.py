@@ -1,37 +1,70 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.functions import Coalesce
 
 
 # Create your models here.
+class QuestionManager(models.Manager):
+    def sort_new(self):
+        return self.order_by('-created').annotate(cnt=Coalesce(models.Count('answers'), 0))
+
+    def sort_hot(self):
+        return self.order_by('-like', '-created').annotate(cnt=Coalesce(models.Count('answers'), 0))
+
+
 class Question(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=150)
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    like = models.ForeignKey('QuestionLikes', on_delete=models.PROTECT)
+    like = models.IntegerField(default=0, editable=False)
     tags = models.ManyToManyField('Tag', related_name='questions')
-    answers = models.ManyToManyField('Answer', related_name='questions')
+    answers = models.ManyToManyField('Answer', related_name='questions', blank=True)
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
+    liked_by = models.ManyToManyField(User, related_name='questions', blank=True)
+
+    objects = QuestionManager()
+
+    def __str__(self):
+        return f"{self.title}"
+
+
+class TagManager(models.Manager):
+    def most_popular(self):
+        return self.values('tag').annotate(total=models.Sum('questions__like')).order_by('-total')[:10]
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=30)
+    tag = models.CharField(max_length=30, unique=True)
+
+    objects = TagManager()
+
+    def __str__(self):
+        return f"{self.tag}"
 
 
-class QuestionLikes(models.Model):
-    likes = models.IntegerField()
+class AnswerManager(models.Manager):
+    def sort_by_date(self):
+        return self.order_by('created')
 
 
 class Answer(models.Model):
     correct = models.BooleanField()
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    like = models.ForeignKey('AnswerLikes', on_delete=models.PROTECT)
+    like = models.IntegerField(default=0, editable=False)
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
+    rated_by = models.ManyToManyField(User, related_name='answers', blank=True)
 
+    objects = AnswerManager()
 
-class AnswerLikes(models.Model):
-    likes = models.IntegerField()
+    def __str__(self):
+        return f"{self.content}"
 
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     nickname = models.CharField(max_length=100)
-    avatar = models.TextField()
+    avatar = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.nickname}"

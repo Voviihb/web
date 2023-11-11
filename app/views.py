@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from app.models import Question
 
 QUESTIONS = [
     {
@@ -22,6 +23,9 @@ def paginate(objects, page, per_page=10):
 
 # Create your views here.
 def index(request):
+    QUESTIONS = Question.objects.sort_new().all()
+    for q in QUESTIONS:
+        print(q)
     page = request.GET.get('page', 1)
     try:
         return render(request, 'index.html', {'questions': paginate(QUESTIONS, page)})
