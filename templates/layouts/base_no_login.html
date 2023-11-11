@@ -82,15 +82,9 @@
                 <div class="row m-4">
                     <h2> Popular tags </h2>
                     <div class="tags">
-                        <span class="tag badge bg-primary">Python</span>
-                        <span class="tag badge bg-secondary">AI</span>
-                        <span class="tag badge bg-success">Kotlin</span>
-                        <span class="tag badge bg-danger">Apple ARM</span>
-                        <span class="tag badge bg-warning text-dark">C++</span>
-                        <span class="tag badge bg-info text-dark">CSS</span>
-                        <span class="tag badge bg-primary">VK Education</span>
-                        <span class="tag badge bg-light text-dark">Android</span>
-                        <span class="tag badge bg-dark">Ruby-on-rails</span>
+                        {% for tag in tags %}
+                        <span class="tag badge {{tag.color}}">{{tag.tag}}</span>
+                        {% endfor %}
                     </div>
                     <br>
 
