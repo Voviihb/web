@@ -30,8 +30,12 @@ class Question(models.Model):
 
 class TagManager(models.Manager):
     def most_popular(self):
-        return self.values('tag').annotate(total=models.Sum('questions__like')).order_by('-total')[:10]
+        return self.values('tag').annotate(total=models.Sum('questions__like')).order_by('-total')[:9]
 
+    def get_questions(self, t):
+        t_id = self.get(tag=t)
+        # return self.values('questions').filter(questions__tags=t_id)
+        return Question.objects.filter(tags=t_id)
 
 class Tag(models.Model):
     tag = models.CharField(max_length=30, unique=True)
@@ -45,6 +49,9 @@ class Tag(models.Model):
 class AnswerManager(models.Manager):
     def sort_by_date(self):
         return self.order_by('created')
+
+    def get_answers(self, q_id):
+        return self.filter(questions__id=q_id).order_by('created')
 
 
 class Answer(models.Model):
