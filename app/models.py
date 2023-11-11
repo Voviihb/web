@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.functions import Coalesce
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your models here.
@@ -33,7 +34,10 @@ class TagManager(models.Manager):
         return self.values('tag').annotate(total=models.Sum('questions__like')).order_by('-total')[:9]
 
     def get_questions(self, t):
-        t_id = self.get(tag=t)
+        try:
+            t_id = self.get(tag=t)
+        except ObjectDoesNotExist:
+            t_id = 0
         # return self.values('questions').filter(questions__tags=t_id)
         return Question.objects.filter(tags=t_id).annotate(cnt=Coalesce(models.Count('answers'), 0))
 
