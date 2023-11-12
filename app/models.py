@@ -41,8 +41,9 @@ class TagManager(models.Manager):
         # return self.values('questions').filter(questions__tags=t_id)
         return Question.objects.filter(tags=t_id).annotate(cnt=Coalesce(models.Count('answers'), 0))
 
+
 class Tag(models.Model):
-    tag = models.CharField(max_length=30, unique=True)
+    tag = models.CharField(max_length=50)
 
     objects = TagManager()
 
