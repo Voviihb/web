@@ -73,10 +73,16 @@ class Answer(models.Model):
         return f"{self.content}"
 
 
+# class UserProfileManager(models.Manager):
+#     def get_avatar(self, u_id):
+#         return self.get(user_id=u_id)
+
+
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    nickname = models.CharField(max_length=100)
     avatar = models.TextField(blank=True, null=True)
 
+    # objects = UserProfileManager()
+
     def __str__(self):
-        return f"{self.nickname}"
+        return f"{self.user}"

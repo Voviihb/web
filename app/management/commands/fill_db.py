@@ -4,7 +4,7 @@ from random import randint
 from datetime import datetime
 import time
 
-from app.models import Question, Answer, Tag, User
+from app.models import Question, Answer, Tag, User, UserProfile
 
 fake = Faker()
 
@@ -19,14 +19,14 @@ class Command(BaseCommand):
         num = kwargs['num']
 
         # Create Tags in bulk
-        tags = [Tag(tag=fake.catch_phrase()[:50]) for _ in range(num)]
+        tags = [Tag(tag=" ".join(fake.catch_phrase()[:40].split("/"))) for _ in range(num)]
         Tag.objects.bulk_create(tags)
         tags_count = num
 
         # Create Users in bulk
         users = [
             User(
-                username=fake.user_name() + str(randint(1, 100)) + str(randint(1, 1000)),
+                username=fake.user_name() + str(randint(1, 100)) + str(randint(1, 100)),
                 first_name=fake.first_name(),
                 last_name=fake.last_name()
             ) for _ in range(num)
@@ -34,13 +34,21 @@ class Command(BaseCommand):
         User.objects.bulk_create(users)
         users_count = num
 
+        user_profiles = [
+            UserProfile(
+                user_id=_ + 1,
+            ) for _ in range(num)
+        ]
+
+        UserProfile.objects.bulk_create(user_profiles)
+
         start_time = time.time()
         # Create Answers in bulk
         answers = [
             Answer(
                 content=fake.text(max_nb_chars=100),
                 correct=fake.boolean(),
-                like=randint(0, users_count - 1) % 100,
+                like=(randint(1, users_count - 1) % 100) * randint(-1, 1),
                 author_id=fake.random_int(min=0, max=users_count - 1) + 1,
             ) for _ in range(100 * num)
         ]
@@ -55,7 +63,7 @@ class Command(BaseCommand):
         for ans in Answer.objects.all():
             cur = []
             i = 0
-            while i < ans.like:
+            while i < abs(ans.like):
                 check = (ans.id, fake.random_int(min=0, max=users_count - 1) + 1)
                 if check in cur:
                     continue
@@ -77,7 +85,7 @@ class Command(BaseCommand):
         questions = [
             Question(
                 title=fake.job(), content=fake.paragraph(nb_sentences=5),
-                like=randint(0, users_count - 1) % 100,
+                like=(randint(0, users_count - 1) % 100) * randint(-1, 1),
                 author_id=fake.random_int(min=0, max=users_count - 1) + 1,
             ) for _ in range(10 * num)
         ]
@@ -93,7 +101,7 @@ class Command(BaseCommand):
         for que in Question.objects.all():
             cur = []
             i = 0
-            while i < que.like:
+            while i < abs(que.like):
                 check = (que.id, fake.random_int(min=0, max=users_count - 1) + 1)
                 if check in cur:
                     continue
@@ -103,7 +111,7 @@ class Command(BaseCommand):
 
             cur = []
             i = 0
-            while i < randint(0, 5):
+            while i < randint(0, 15):
                 check = (que.id, fake.random_int(min=0, max=answers_count - 1) + 1)
                 if check in cur:
                     continue
