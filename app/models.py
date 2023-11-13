@@ -7,10 +7,12 @@ from django.core.exceptions import ObjectDoesNotExist
 # Create your models here.
 class QuestionManager(models.Manager):
     def sort_new(self):
-        return self.order_by('-created').annotate(cnt=Coalesce(models.Count('answers'), 0))
+        # return self.order_by('-created').annotate(cnt=Coalesce(models.Count('answers'), 0))
+        return self.order_by('-created')
+
 
     def sort_hot(self):
-        return self.order_by('-like', '-created').annotate(cnt=Coalesce(models.Count('answers'), 0))
+        return self.order_by('-like', '-created')
 
 
 class Question(models.Model):
@@ -37,7 +39,7 @@ class TagManager(models.Manager):
         try:
             t_id = self.get(tag=t)
         except ObjectDoesNotExist:
-            t_id = 0
+            t_id = 1
         # return self.values('questions').filter(questions__tags=t_id)
         return Question.objects.filter(tags=t_id).annotate(cnt=Coalesce(models.Count('answers'), 0))
 

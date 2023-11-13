@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from app.models import Question, Answer, Tag
 from random import randint
+import time
 
 
 def prepare_tags():
@@ -15,6 +16,8 @@ def prepare_tags():
     } for tag in t]
     return res
 
+TAGS = prepare_tags()
+print("PREPARE")
 
 def paginate(objects, page, per_page=10):
     paginator = Paginator(objects, per_page)
@@ -26,8 +29,8 @@ def paginate(objects, page, per_page=10):
 
 # Create your views here.
 def index(request):
-    TAGS = prepare_tags()
-    QUESTIONS = Question.objects.sort_new().all()
+    # TAGS = prepare_tags()
+    QUESTIONS = Question.objects.sort_new()
     page = request.GET.get('page', 1)
     try:
         return render(request, 'index.html', {'questions': paginate(QUESTIONS, page), 'tags': TAGS})
@@ -38,7 +41,7 @@ def index(request):
 
 
 def question(request, question_id):
-    TAGS = prepare_tags()
+    # TAGS = prepare_tags()
     QUESTIONS = Question.objects.all()
     page = request.GET.get('page', 1)
     try:
@@ -56,28 +59,28 @@ def question(request, question_id):
 
 
 def ask(request):
-    TAGS = prepare_tags()
+    # TAGS = prepare_tags()
     return render(request, 'ask.html', {'tags': TAGS})
 
 
 def login(request):
-    TAGS = prepare_tags()
+    # TAGS = prepare_tags()
     return render(request, 'login.html', {'tags': TAGS})
 
 
 def signup(request):
-    TAGS = prepare_tags()
+    # TAGS = prepare_tags()
     return render(request, 'signup.html', {'tags': TAGS})
 
 
 def settings(request):
-    TAGS = prepare_tags()
+    # TAGS = prepare_tags()
     return render(request, 'settings.html', {'tags': TAGS})
 
 
 def hot(request):
-    TAGS = prepare_tags()
-    QUESTIONS = Question.objects.sort_hot().all()
+    # TAGS = prepare_tags()
+    QUESTIONS = Question.objects.sort_hot()
     page = request.GET.get('page', 1)
     try:
         return render(request, 'hot.html', {'questions': paginate(QUESTIONS, page), 'tags': TAGS})
@@ -88,7 +91,7 @@ def hot(request):
 
 
 def tag(request, tag_name):
-    TAGS = prepare_tags()
+    # TAGS = prepare_tags()
     page = request.GET.get('page', 1)
     res = Tag.objects.get_questions(tag_name)
 
