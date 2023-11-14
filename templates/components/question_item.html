@@ -25,10 +25,10 @@
             {{ question.content }}
         </div>
         <div class="row">
-            <div class="col-4">
-                <a href="{% url 'question' question.id %}"> answer ({{ question.cnt }}) </a>
-            </div>
-            <div class="col-8">
+<!--            <div class="col-4">-->
+<!--                <a href="{% url 'question' question.id %}"> answer ({{ question.cnt }}) </a>-->
+<!--            </div>-->
+            <div class="col-12">
                 Tags:
                 {% for tag in question.tags.all %}
                 <span class="mx-1"> <a href="{% url 'tag' tag %}"> {{ tag }} </a> </span>

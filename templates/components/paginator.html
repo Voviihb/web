@@ -2,16 +2,25 @@
 <div class="row mb-3">
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group me-2" role="group" aria-label="First group">
-            <button type="button" class="btn btn-outline-secondary">1</button>
-            <button type="button" class="btn btn-outline-secondary">2</button>
-            <button type="button" class="btn btn-outline-secondary">3</button>
-            <button type="button" class="btn btn-outline-secondary">4</button>
+            <a href="?page={{ 1 }}">
+                <button type="button" class="btn btn-outline-secondary">First</button>
+            </a>
         </div>
         <div class="btn-group me-2" role="group" aria-label="Second group">
-            <button type="button" class="btn btn-outline-secondary">...</button>
+            <a href="?page={{ page_num|add:-1 }}">
+                <button type="button" class="btn btn-outline-secondary"><<</button>
+            </a>
+            <a href="?page={{ page_num }}">
+                <button type="button" class="btn btn-outline-primary">{{page_num}}</button>
+            </a>
+            <a href="?page={{ page_num|add:1 }}">
+                <button type="button" class="btn btn-outline-secondary">>></button>
+            </a>
         </div>
         <div class="btn-group" role="group" aria-label="Third group">
-            <button type="button" class="btn btn-outline-secondary">53</button>
+            <a href="?page={{ total_pages }}">
+                <button type="button" class="btn btn-outline-secondary">Last</button>
+            </a>
         </div>
     </div>
 </div>
