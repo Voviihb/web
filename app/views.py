@@ -48,7 +48,7 @@ def index(request):
     try:
         data, total_pages = paginate(QUESTIONS, page)
         return render(request, 'index.html', {'questions': data,
-                                              'tags': TAGS, 'page_num': page, 'total_pages': int(total_pages)})
+                                              'tags': TAGS, 'page_num': int(page), 'total_pages': int(total_pages)})
     except EmptyPage:
         return not_found(request)
 
@@ -72,7 +72,7 @@ def question(request, question_id):
     try:
         data, total_pages = paginate(answers, page)
         return render(request, 'question.html',
-                      {'question': item, 'answers': data, 'tags': TAGS, 'page_num': page,
+                      {'question': item, 'answers': data, 'tags': TAGS, 'page_num': int(page),
                        'total_pages': int(total_pages)})
     except EmptyPage:
         return not_found(request)
@@ -111,7 +111,7 @@ def hot(request):
     try:
         data, total_pages = paginate(QUESTIONS, page)
         return render(request, 'hot.html', {'questions': data,
-                                            'tags': TAGS, 'page_num': page, 'total_pages': int(total_pages)})
+                                            'tags': TAGS, 'page_num': int(page), 'total_pages': int(total_pages)})
     except EmptyPage:
         return not_found(request)
 
@@ -129,7 +129,7 @@ def tag(request, tag_name):
     try:
         data, total_pages = paginate(res, page)
         return render(request, 'tag.html',
-                      {'tag': tag_name, 'questions': data, 'tags': TAGS, 'page_num': page,
+                      {'tag': tag_name, 'questions': data, 'tags': TAGS, 'page_num': int(page),
                        'total_pages': int(total_pages)})
     except EmptyPage:
         return not_found(request)

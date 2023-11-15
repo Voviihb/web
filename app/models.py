@@ -1,15 +1,12 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.functions import Coalesce
 from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your models here.
 class QuestionManager(models.Manager):
     def sort_new(self):
-        # return self.order_by('-created').annotate(cnt=Coalesce(models.Count('answers'), 0))
         return self.order_by('-created')
-
 
     def sort_hot(self):
         return self.order_by('-like', '-created')
@@ -40,8 +37,7 @@ class TagManager(models.Manager):
             t_id = self.get(tag=t)
         except ObjectDoesNotExist:
             t_id = 1
-        # return self.values('questions').filter(questions__tags=t_id)
-        return Question.objects.filter(tags=t_id).annotate(cnt=Coalesce(models.Count('answers'), 0))
+        return Question.objects.filter(tags=t_id)
 
 
 class Tag(models.Model):
@@ -75,16 +71,9 @@ class Answer(models.Model):
         return f"{self.content}"
 
 
-# class UserProfileManager(models.Manager):
-#     def get_avatar(self, u_id):
-#         return self.get(user_id=u_id)
-
-
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     avatar = models.TextField(blank=True, null=True)
-
-    # objects = UserProfileManager()
 
     def __str__(self):
         return f"{self.user}"

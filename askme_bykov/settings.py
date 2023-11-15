@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'askme_bykov.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_db',
+        'NAME': 'bykov_db',
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': 'localhost',

@@ -7,15 +7,28 @@
             </a>
         </div>
         <div class="btn-group me-2" role="group" aria-label="Second group">
+            {% if page_num <= 1%}
+            <a href="#">
+                <button type="button" class="btn btn-outline-secondary" disabled><<</button>
+            </a>
+            {% else %}
             <a href="?page={{ page_num|add:-1 }}">
                 <button type="button" class="btn btn-outline-secondary"><<</button>
             </a>
+            {%endif %}
+
             <a href="?page={{ page_num }}">
                 <button type="button" class="btn btn-outline-primary">{{page_num}}</button>
             </a>
+            {% if page_num >= total_pages %}
+            <a href="#">
+                <button type="button" class="btn btn-outline-secondary" disabled>>></button>
+            </a>
+            {% else %}
             <a href="?page={{ page_num|add:1 }}">
                 <button type="button" class="btn btn-outline-secondary">>></button>
             </a>
+            {% endif %}
         </div>
         <div class="btn-group" role="group" aria-label="Third group">
             <a href="?page={{ total_pages }}">
