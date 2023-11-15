@@ -1,6 +1,17 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
+from random import randint
+
+
+def prepare_tags():
+    t = Tag.objects.most_popular()
+    colors = ["bg-primary", "bg-secondary", "bg-success", "bg-danger", "bg-warning text-dark", "bg-info text-dark",
+              "bg-light text-dark", "bg-dark"]
+    res = [{
+        'tag': tag["tag"],
+        'color': colors[randint(0, 7)]
+    } for tag in t]
+    return res
 
 
 # Create your models here.
@@ -33,10 +44,7 @@ class TagManager(models.Manager):
         return self.values('tag').annotate(total=models.Sum('questions__like')).order_by('-total')[:9]
 
     def get_questions(self, t):
-        try:
-            t_id = self.get(tag=t)
-        except ObjectDoesNotExist:
-            t_id = 1
+        t_id = self.get(tag=t)
         return Question.objects.filter(tags=t_id)
 
 

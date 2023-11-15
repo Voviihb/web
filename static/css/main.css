@@ -31,11 +31,18 @@ main > .container {
     font-weight: normal;
 }
 
-.question-points,
-.answer-points {
+.question-points-plus,
+.answer-points-plus {
     font-size: 20px;
     font-weight: bolder;
     color: #0a58ca;
+}
+
+.question-points-minus,
+.answer-points-minus {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #dc3545;
 }
 
 

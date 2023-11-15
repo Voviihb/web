@@ -4,12 +4,12 @@
         <img class="avatar-image" src="{% static '/img/vk_logo.png' %}" alt="image">
         <div class="row my-1">
             <div class="col-10 d-flex justify-content-center">
-                <div class="answer-points d-flex justify-content-center">{{ answer.author }}</div>
+                <div class="{% if answer.like >= 0 %} answer-points-plus {% else %} answer-points-minus {% endif %} d-flex justify-content-center">{{ answer.author }}</div>
             </div>
         </div>
         <div class="row mt-2 ">
             <div class="col-4">
-                <div class="answer-points d-flex justify-content-center">{{ answer.like }}</div>
+                <div class="{% if answer.like >= 0 %} answer-points-plus {% else %} answer-points-minus {% endif %} d-flex justify-content-center">{{ answer.like }}</div>
             </div>
             <div class="col-8">
                 <div class="btn-group">

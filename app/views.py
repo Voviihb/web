@@ -1,24 +1,15 @@
 from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage
 from app.models import Question, Answer, Tag
-from random import randint
-import time
+from django.core.exceptions import ObjectDoesNotExist
+from .models import prepare_tags
+
+TAGS = []
 
 
-def prepare_tags():
-    t = Tag.objects.most_popular()
-    colors = ["bg-primary", "bg-secondary", "bg-success", "bg-danger", "bg-warning text-dark", "bg-info text-dark",
-              "bg-light text-dark", "bg-dark"]
-    res = [{
-        'tag': tag["tag"],
-        'color': colors[randint(0, 7)]
-    } for tag in t]
-    return res
-
-
-TAGS = prepare_tags()
-print("PREPARE")
+# # uncomment after DB generation
+# TAGS = prepare_tags()
+# print("PREPARE")
 
 
 def paginate(objects, page, per_page=10):
@@ -41,11 +32,6 @@ def index(request):
     page = request.GET.get('page', 1)
 
     try:
-        if int(page) < 1:
-            page = 1
-    except ValueError:
-        page = 1
-    try:
         data, total_pages = paginate(QUESTIONS, page)
         return render(request, 'index.html', {'questions': data,
                                               'tags': TAGS, 'page_num': int(page), 'total_pages': int(total_pages)})
@@ -57,16 +43,11 @@ def question(request, question_id):
     # TAGS = prepare_tags()
     QUESTIONS = Question.objects.all()
     page = request.GET.get('page', 1)
-    try:
-        if int(page) < 1:
-            page = 1
-    except ValueError:
-        page = 1
 
     try:
         item = QUESTIONS[question_id - 1]
     except IndexError:
-        item = QUESTIONS[0]
+        return not_found(request)
     answers = Answer.objects.get_answers(question_id)
 
     try:
@@ -102,11 +83,6 @@ def hot(request):
     # TAGS = prepare_tags()
     QUESTIONS = Question.objects.sort_hot()
     page = request.GET.get('page', 1)
-    try:
-        if int(page) < 1:
-            page = 1
-    except ValueError:
-        page = 1
 
     try:
         data, total_pages = paginate(QUESTIONS, page)
@@ -119,12 +95,10 @@ def hot(request):
 def tag(request, tag_name):
     # TAGS = prepare_tags()
     page = request.GET.get('page', 1)
-    res = Tag.objects.get_questions(tag_name)
     try:
-        if int(page) < 1:
-            page = 1
-    except ValueError:
-        page = 1
+        res = Tag.objects.get_questions(tag_name)
+    except ObjectDoesNotExist:
+        return not_found(request)
 
     try:
         data, total_pages = paginate(res, page)
