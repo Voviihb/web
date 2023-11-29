@@ -66,6 +66,7 @@ def question(request, question_id):
         return not_found(request)
 
 
+@login_required(login_url='login')
 def ask(request):
     # TAGS = prepare_tags()
     return render(request, 'ask.html', {'tags': TAGS})
@@ -97,11 +98,14 @@ def signup(request):
         if user_form.is_valid():
             user = user_form.save()
             if user:
+                login(request, user)
                 return redirect(request.GET.get('next', 'index'))
             else:
                 user_form.add_error(None, "Registration error!")
     return render(request, 'signup.html', {'tags': TAGS, 'form': user_form})
 
+
+@login_required(login_url='login')
 def logout(request):
     auth.logout(request)
     return redirect(reverse('login'))
