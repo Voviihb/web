@@ -1,15 +1,22 @@
-from django.shortcuts import render
+from django.contrib import auth
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage
+from django.views.decorators.csrf import csrf_protect
+
 from app.models import Question, Answer, Tag
+from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+
+from .forms import LoginForm, RegisterForm
 from .models import prepare_tags
 
 TAGS = []
 
-
-# # uncomment after DB generation
-# TAGS = prepare_tags()
-# print("PREPARE")
+# uncomment after DB generation
+TAGS = prepare_tags()
+print("PREPARE")
 
 
 def paginate(objects, page, per_page=10):
@@ -64,16 +71,43 @@ def ask(request):
     return render(request, 'ask.html', {'tags': TAGS})
 
 
-def login(request):
+@csrf_protect
+def log_in(request):
     # TAGS = prepare_tags()
-    return render(request, 'login.html', {'tags': TAGS})
+    if request.method == "GET":
+        login_form = LoginForm()
+    if request.method == "POST":
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            user = authenticate(request, **login_form.cleaned_data)
+            if user is not None:
+                login(request, user)
+                return redirect(request.GET.get('next', 'index'))
+            else:
+                login_form.add_error(None, "Wrong username or password!")
+    return render(request, 'login.html', {'tags': TAGS, 'form': login_form})
 
 
 def signup(request):
     # TAGS = prepare_tags()
-    return render(request, 'signup.html', {'tags': TAGS})
+    if request.method == "GET":
+        user_form = RegisterForm()
+    if request.method == "POST":
+        user_form = RegisterForm(request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            if user:
+                return redirect(request.GET.get('next', 'index'))
+            else:
+                user_form.add_error(None, "Registration error!")
+    return render(request, 'signup.html', {'tags': TAGS, 'form': user_form})
+
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('login'))
 
 
+@login_required(login_url='login')
 def settings(request):
     # TAGS = prepare_tags()
     return render(request, 'settings.html', {'tags': TAGS})

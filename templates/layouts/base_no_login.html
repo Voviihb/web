@@ -83,7 +83,7 @@
                     <h2> Popular tags </h2>
                     <div class="tags">
                         {% for tag in tags %}
-                        <span class="tag badge {{tag.color}}">{{tag.tag}}</span>
+                        <a href="{% url 'tag' tag.tag %}"><span class="tag badge {{tag.color}}">{{tag.tag}}</span></a>
                         {% endfor %}
                     </div>
                     <br>
