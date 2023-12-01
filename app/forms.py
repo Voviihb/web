@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
-from app.models import UserProfile
+from app.models import UserProfile, Question, Tag
 
 
 class LoginForm(forms.Form):
@@ -72,3 +72,30 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         if commit:
             self.user.save()
         return self.user
+
+
+class AskForm(forms.ModelForm):
+    tags = forms.CharField(
+        label="Enter tags (', '-separated)",
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+
+    title = forms.CharField(
+        label="Title",
+        strip=True,
+        required=True,
+        min_length=10
+    )
+
+    content = forms.CharField(
+        label="Describe your question",
+        strip=True,
+        required=True,
+        min_length=20,
+        widget=forms.Textarea(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Question
+        fields = ['title', 'content']

@@ -9,7 +9,7 @@ from app.models import Question, Answer, Tag
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import LoginForm, RegisterForm, UserProfileForm, CustomPasswordChangeForm
+from .forms import LoginForm, RegisterForm, UserProfileForm, CustomPasswordChangeForm, AskForm
 from .models import prepare_tags
 
 TAGS = []
@@ -69,7 +69,29 @@ def question(request, question_id):
 @login_required(login_url='login')
 def ask(request):
     # TAGS = prepare_tags()
-    return render(request, 'ask.html', {'tags': TAGS})
+
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question_result = Question(
+                title=form.cleaned_data['title'], content=form.cleaned_data['content'],
+                like=0, author_id=request.user.id)
+            tag_list = [_.strip() for _ in form.cleaned_data['tags'].split(',') if _.strip()]
+            question_result.save()
+
+            saved_tags = []
+            for _ in tag_list:
+                saved_tag, created = Tag.objects.get_or_create(tag=_)
+                saved_tags.append(saved_tag)
+
+            question_result.tags.set(saved_tags)
+            question_result.save()
+
+            return redirect('question', question_id=question_result.id)
+    else:
+        form = AskForm()
+
+    return render(request, 'ask.html', {'form': form})
 
 
 @csrf_protect
