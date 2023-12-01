@@ -125,15 +125,17 @@ def settings(request):
             user = password_form.save()
             update_session_auth_hash(request, user)  # Important to maintain the session after password change
             return redirect(request.GET.get('next', 'index'))
-        elif user_form.is_valid():
+
+        if user_form.is_valid() and request.POST.get('email') and not any(
+                [request.POST.get('old_password'), request.POST.get('new_password1'),
+                 request.POST.get('new_password2')]):
             user_form.save()
             return redirect(request.GET.get('next', 'index'))
-        else:
-            if not password_form.is_valid():
-                password_form.add_error(None, "Changing password error!")
-            if not user_form.is_valid():
-                user_form.add_error(None, "Changing error!")
 
+        if not password_form.is_valid():
+            password_form.add_error(None, "Changing password error!")
+        if not user_form.is_valid() or not request.POST.get('email'):
+            user_form.add_error(None, "Changing error!")
 
     return render(request, 'settings.html', {'tags': TAGS, 'user_form': user_form, 'password_form': password_form})
 
