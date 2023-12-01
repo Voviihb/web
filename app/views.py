@@ -1,5 +1,5 @@
 from django.contrib import auth
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage
@@ -9,7 +9,7 @@ from app.models import Question, Answer, Tag
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, UserProfileForm, CustomPasswordChangeForm
 from .models import prepare_tags
 
 TAGS = []
@@ -114,7 +114,28 @@ def logout(request):
 @login_required(login_url='login')
 def settings(request):
     # TAGS = prepare_tags()
-    return render(request, 'settings.html', {'tags': TAGS})
+    if request.method == "GET":
+        user_form = UserProfileForm(instance=request.user)
+        password_form = CustomPasswordChangeForm(request.user)
+    if request.method == "POST":
+        user_form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        password_form = CustomPasswordChangeForm(request.user, request.POST)
+
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)  # Important to maintain the session after password change
+            return redirect(request.GET.get('next', 'index'))
+        elif user_form.is_valid():
+            user_form.save()
+            return redirect(request.GET.get('next', 'index'))
+        else:
+            if not password_form.is_valid():
+                password_form.add_error(None, "Changing password error!")
+            if not user_form.is_valid():
+                user_form.add_error(None, "Changing error!")
+
+
+    return render(request, 'settings.html', {'tags': TAGS, 'user_form': user_form, 'password_form': password_form})
 
 
 def hot(request):

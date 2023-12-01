@@ -1,33 +1,17 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
+{% load bootstrap5 %}
 
 {% block content %}
 <h1>Settings</h1>
-<form action="/settings_submit" method="get">
-    <div class="settings-error my-3">
-        Sorry, this E-mail is already used!
-    </div>
-    <div class="my-3">
-        <label for="inputEmail" class="form-label">New E-mail</label>
-        <input type="email" class="form-control email-field" id="inputEmail" name="email" placeholder="Enter E-mail">
-    </div>
-    <div class="my-3">
-        <label for="inputPassword" class="form-label">New password</label>
-        <input type="password" class="form-control password-field" id="inputPassword"
-               name="password" placeholder="Enter password">
-    </div>
-    <div class="my-3">
-        <label for="inputRepeatPassword" class="form-label">Repeat new password</label>
-        <input type="password" class="form-control password-field" id="inputRepeatPassword"
-               name="repeat_password" placeholder="Enter password again">
-    </div>
-
-    <div class="my-3">
-        <label for="formFile" class="form-label">Upload new avatar</label>
-        <input class="form-control file-field" type="file" accept="image/*"
-               name="avatar" id="formFile">
-    </div>
-
-    <button type="submit" class="btn btn-primary button-login">Save</button>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form user_form exclude="password" %}
+    <button type="submit" class="btn btn-primary button-login my-3">Save</button>
+</form>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form password_form %}
+    <button type="submit" class="btn btn-primary button-login my-3">Change password</button>
 </form>
 {% endblock %}
