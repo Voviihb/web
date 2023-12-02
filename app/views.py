@@ -6,10 +6,10 @@ from django.core.paginator import Paginator, EmptyPage
 from django.views.decorators.csrf import csrf_protect
 
 from app.models import Question, Answer, Tag
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import LoginForm, RegisterForm, UserProfileForm, CustomPasswordChangeForm, AskForm
+from .forms import LoginForm, RegisterForm, UserProfileForm, CustomPasswordChangeForm, AskForm, AnswerForm
 from .models import prepare_tags
 
 TAGS = []
@@ -59,8 +59,30 @@ def question(request, question_id):
 
     try:
         data, total_pages = paginate(answers, page)
+        if request.method == 'POST':
+            form = AnswerForm(request.POST)
+            if form.is_valid():
+                answer_result = Answer(
+                    content=form.cleaned_data['content'],
+                    correct=False,
+                    like=0,
+                    author_id=request.user.id,
+                )
+                answer_result.save()
+
+                question_obj = Question.objects.get(id=question_id)
+                question_obj.answers.add(answer_result)
+                question_obj.save()
+
+                redirect_url = reverse('question', kwargs={
+                    'question_id': question_id}) + f'?page={total_pages}'
+
+                return redirect(redirect_url)
+        else:
+            form = AnswerForm()
+
         return render(request, 'question.html',
-                      {'question': item, 'answers': data, 'tags': TAGS, 'page_num': int(page),
+                      {'question': item, 'form': form, 'answers': data, 'tags': TAGS, 'page_num': int(page),
                        'total_pages': int(total_pages)})
     except EmptyPage:
         return not_found(request)
@@ -91,7 +113,7 @@ def ask(request):
     else:
         form = AskForm()
 
-    return render(request, 'ask.html', {'form': form})
+    return render(request, 'ask.html', {'tags': TAGS, 'form': form})
 
 
 @csrf_protect

@@ -1,5 +1,6 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
+{% load bootstrap5 %}
 
 
 {% block content %}
@@ -24,13 +25,10 @@
 {% block additional %}
 <hr class="mb-1">
 <div class="row">
-    <form>
-        <div class="my-3">
-            <label for="inputAnswer" class="form-label">Enter your answer here</label>
-            <textarea type="text" class="form-control" id="inputAnswer"> </textarea>
-            <div id="answerHelp" class="form-text">Please respect the opinions of other users</div>
-        </div>
-        <button type="submit" class="btn btn-primary button-ask">Answer!</button>
-    </form>
+    <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary button-ask">Answer!</button>
+</form>
 </div>
 {% endblock %}

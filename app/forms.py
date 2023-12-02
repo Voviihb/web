@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
-from app.models import UserProfile, Question, Tag
+from app.models import UserProfile, Question, Tag, Answer
 
 
 class LoginForm(forms.Form):
@@ -99,3 +99,17 @@ class AskForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['title', 'content']
+
+
+class AnswerForm(forms.ModelForm):
+    content = forms.CharField(
+        label="Put your answer here",
+        strip=True,
+        required=True,
+        min_length=20,
+        widget=forms.Textarea(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Answer
+        fields = ['content']
