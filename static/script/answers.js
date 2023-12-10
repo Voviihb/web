@@ -14,17 +14,17 @@ function getCookie(name) {
     return cookieValue;
 }
 
-const my_items = document.getElementsByClassName('like-section')
+const answer_items = document.getElementsByClassName('like-section-answers')
 
-for (let item of my_items) {
+for (let item of answer_items) {
     const [counter, button] = item.children;
     const btn = button.children[0].children[0];
     const cnt = counter.children[0];
 
     btn.addEventListener('click', () => {
         const formData = new FormData();
-        formData.append('question_id', btn.dataset.id);
-        const request = new Request('/like_question', {
+        formData.append('answer_id', btn.dataset.id);
+        const request = new Request('/like_answer', {
             method: 'POST',
             body: formData,
             headers: {

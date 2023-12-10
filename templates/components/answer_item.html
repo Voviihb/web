@@ -11,13 +11,13 @@
                 <div class="answer-points-plus d-flex justify-content-center">{{ answer.author }}</div>
             </div>
         </div>
-        <div class="row mt-2 like-section">
+        <div class="row mt-2 like-section-answers">
             <div class="col-4">
                 <div class="answer-points-plus d-flex justify-content-center">{{ answer.like }}</div>
             </div>
             <div class="col-8">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-sm button-like">+</button>
+                    <button type="button" data-id="{{ answer.id }}" class="btn btn-success btn-sm button-like">+</button>
                 </div>
             </div>
         </div>

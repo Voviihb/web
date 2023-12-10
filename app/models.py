@@ -79,6 +79,21 @@ class AnswerManager(models.Manager):
     def get_answers(self, q_id):
         return self.filter(questions__id=q_id).order_by('created')
 
+    def toggle_like(self, user, answer):
+        # Get the specific question instance
+        answer_instance = self.get(pk=answer.pk)
+
+        # Check if the user has already liked the question
+        if answer_instance.rated_by.filter(pk=user.pk).exists():
+            answer_instance.rated_by.remove(user)
+            answer_instance.like -= 1
+        else:
+            answer_instance.rated_by.add(user)
+            answer_instance.like += 1
+
+        # Save the changes to the question instance
+        answer_instance.save()
+
 
 class Answer(models.Model):
     correct = models.BooleanField()

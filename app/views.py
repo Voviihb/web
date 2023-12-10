@@ -226,3 +226,14 @@ def like_question(request):
     count = Question.objects.get(pk=id).like
 
     return JsonResponse({'count': count})
+
+
+@csrf_protect
+@login_required(login_url='login')
+def like_answer(request):
+    id = request.POST.get('answer_id')
+    answer_el = Answer.objects.get(pk=id)
+    Answer.objects.toggle_like(user=request.user, answer=answer_el)
+    count = Answer.objects.get(pk=id).like
+
+    return JsonResponse({'count': count})
