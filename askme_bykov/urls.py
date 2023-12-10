@@ -31,7 +31,8 @@ urlpatterns = [
     path('hot', views.hot, name="hot"),
     path('tag/<str:tag_name>', views.tag, name="tag"),
     path('admin/', admin.site.urls),
-    path('404', views.not_found, name="not_found")
+    path('404', views.not_found, name="not_found"),
+    path('like_question', views.like_question, name="like_question")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

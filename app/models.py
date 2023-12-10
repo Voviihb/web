@@ -22,6 +22,21 @@ class QuestionManager(models.Manager):
     def sort_hot(self):
         return self.order_by('-like', '-created')
 
+    def toggle_like(self, user, question):
+        # Get the specific question instance
+        question_instance = self.get(pk=question.pk)
+
+        # Check if the user has already liked the question
+        if question_instance.liked_by.filter(pk=user.pk).exists():
+            question_instance.liked_by.remove(user)
+            question_instance.like -= 1
+        else:
+            question_instance.liked_by.add(user)
+            question_instance.like += 1
+
+        # Save the changes to the question instance
+        question_instance.save()
+
 
 class Question(models.Model):
     title = models.CharField(max_length=150)

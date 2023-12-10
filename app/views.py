@@ -1,11 +1,12 @@
 from django.contrib import auth
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage
 from django.views.decorators.csrf import csrf_protect
 
-from app.models import Question, Answer, Tag
+from app.models import Question, Answer, Tag, QuestionManager
 from django.urls import reverse, reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -214,3 +215,14 @@ def tag(request, tag_name):
                        'total_pages': int(total_pages)})
     except EmptyPage:
         return not_found(request)
+
+
+@csrf_protect
+@login_required(login_url='login')
+def like_question(request):
+    id = request.POST.get('question_id')
+    question_el = Question.objects.get(pk=id)
+    Question.objects.toggle_like(user=request.user, question=question_el)
+    count = Question.objects.get(pk=id).like
+
+    return JsonResponse({'count': count})

@@ -8,21 +8,20 @@
         </div>
         <div class="row my-1">
             <div class="col-10 d-flex justify-content-center">
-                <div class="{% if question.like >= 0 %} question-points-plus {% else %} question-points-minus {% endif %} d-flex justify-content-center">
+                <div class="question-points-plus d-flex justify-content-center">
                     {{ question.author }}
                 </div>
             </div>
         </div>
-        <div class="row mt-2 ">
+        <div class="row mt-2 like-section">
             <div class="col-4">
-                <div class="{% if question.like >= 0 %} question-points-plus {% else %} question-points-minus {% endif %} d-flex justify-content-center">
+                <div class="question-points-plus d-flex justify-content-center">
                     {{ question.like }}
                 </div>
             </div>
             <div class="col-8">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-sm">+</button>
-                    <button type="button" class="btn btn-danger btn-sm">-</button>
+                    <button type="button" class="btn btn-success btn-sm button-like">+</button>
                 </div>
             </div>
         </div>

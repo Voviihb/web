@@ -39,7 +39,7 @@ class Command(BaseCommand):
         Answer.objects.bulk_create([Answer(
             content=fake.text(max_nb_chars=100),
             correct=fake.boolean(),
-            like=(randint(1, users_count - 1) % 100) * randint(-1, 1),
+            like=(randint(1, users_count - 1) % 100),
             author_id=fake.random_int(min=0, max=users_count - 1) + 1,
         ) for _ in range(100 * num)], batch_size=1000)
         end_time = time.time()
@@ -73,7 +73,7 @@ class Command(BaseCommand):
         # Create Questions in bulk
         Question.objects.bulk_create([Question(
             title=fake.job(), content=fake.paragraph(nb_sentences=5),
-            like=(randint(0, users_count - 1) % 500) * randint(-1, 1),
+            like=(randint(0, users_count - 1) % 500),
             author_id=fake.random_int(min=0, max=users_count - 1) + 1,
         ) for _ in range(10 * num)], batch_size=1000)
         end_time = time.time()
