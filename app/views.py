@@ -155,12 +155,14 @@ def logout(request):
     return redirect(reverse('login'))
 
 
+@csrf_protect
 @login_required(login_url='login')
 def settings(request):
     # TAGS = prepare_tags()
     if request.method == "GET":
         user_form = UserProfileForm(instance=request.user)
         password_form = CustomPasswordChangeForm(request.user)
+        print(request.user.userprofile.avatar)
     if request.method == "POST":
         user_form = UserProfileForm(request.POST, request.FILES, instance=request.user)
         password_form = CustomPasswordChangeForm(request.user, request.POST)

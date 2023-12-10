@@ -1,7 +1,11 @@
 {% load static %}
 <div class="row answer">
     <div class="col-3 my-auto">
-        <img class="avatar-image" src="{% static '/img/vk_logo.png' %}" alt="image">
+        {% if answer.author.userprofile.avatar%}
+        <div class="d-flex justify-content-center col-10">
+            <img class="avatar-image" src="{{ answer.author.userprofile.avatar.url }}" alt="image">
+        </div>
+        {% endif %}
         <div class="row my-1">
             <div class="col-10 d-flex justify-content-center">
                 <div class="{% if answer.like >= 0 %} answer-points-plus {% else %} answer-points-minus {% endif %} d-flex justify-content-center">{{ answer.author }}</div>

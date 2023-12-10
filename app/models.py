@@ -81,7 +81,7 @@ class Answer(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatar/%Y/%m/%d', default='avatar.png', blank=True, null=True)
 
     def __str__(self):
         return f"{self.user}"

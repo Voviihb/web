@@ -42,6 +42,17 @@ class UserProfileForm(UserChangeForm):
         model = User
         fields = ['email', 'avatar']
 
+    def save(self, **kwargs):
+        user = super().save(**kwargs)
+
+        profile = user.userprofile
+        received_avatar = self.cleaned_data.get('avatar')
+        if received_avatar:
+            profile.avatar = self.cleaned_data.get('avatar')
+            profile.save()
+
+        return user
+
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(

@@ -4,9 +4,15 @@
 
 {% block content %}
 <h1>Settings</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form user_form exclude="password" %}
+    {% if request.user.userprofile.avatar %}
+    <div>
+        <p>Current image:</p>
+        <img class="avatar-image" src="{{ request.user.userprofile.avatar.url }}" alt="Profile Avatar">
+    </div>
+    {% endif %}
     <button type="submit" class="btn btn-primary button-login my-3">Save</button>
 </form>
 <form method="post">
@@ -14,4 +20,5 @@
     {% bootstrap_form password_form %}
     <button type="submit" class="btn btn-primary button-login my-3">Change password</button>
 </form>
+
 {% endblock %}
