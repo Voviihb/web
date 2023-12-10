@@ -17,7 +17,8 @@
             </div>
             <div class="col-8">
                 <div class="btn-group">
-                    <button type="button" data-id="{{ answer.id }}" class="btn btn-success btn-sm button-like">+</button>
+                    <button type="button" data-id="{{ answer.id }}" class="btn btn-success btn-sm button-like">+
+                    </button>
                 </div>
             </div>
         </div>
@@ -30,7 +31,8 @@
         <div class="row">
             <div class="col">
                 <div class="form-check my-1">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheck"
+                    <input class="form-check-input" type="checkbox" data-ansid="{{ answer.id }}"
+                           data-queid="{{ question.id }}" value="" id="flexCheck"
                            {% if answer.correct %}
                            checked
                            {% endif %}

@@ -33,7 +33,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('404', views.not_found, name="not_found"),
     path('like_question', views.like_question, name="like_question"),
-    path('like_answer', views.like_answer, name="like_answer")
+    path('like_answer', views.like_answer, name="like_answer"),
+    path('correct_answer', views.correct_answer, name="correct_answer")
 
 ]
 

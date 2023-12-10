@@ -94,6 +94,21 @@ class AnswerManager(models.Manager):
         # Save the changes to the question instance
         answer_instance.save()
 
+    def toggle_correct(self, user, answer, question):
+        # Get the specific question instance
+        answer_instance = self.get(pk=answer.pk)
+        question_instance = Question.objects.get(pk=question.pk)
+
+        # Check if the user has already liked the question
+        if user == question_instance.author:
+            if answer_instance.correct:
+                answer_instance.correct = False
+            else:
+                answer_instance.correct = True
+
+            # Save the changes to the question instance
+            answer_instance.save()
+
 
 class Answer(models.Model):
     correct = models.BooleanField()

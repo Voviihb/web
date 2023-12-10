@@ -237,3 +237,16 @@ def like_answer(request):
     count = Answer.objects.get(pk=id).like
 
     return JsonResponse({'count': count})
+
+
+@csrf_protect
+@login_required(login_url='login')
+def correct_answer(request):
+    ansid = request.POST.get('answer_id')
+    queid = request.POST.get('question_id')
+    answer_el = Answer.objects.get(pk=ansid)
+    question_el = Question.objects.get(pk=queid)
+    Answer.objects.toggle_correct(user=request.user, answer=answer_el, question=question_el)
+    correct = Answer.objects.get(pk=ansid).correct
+
+    return JsonResponse({'correct': correct})
