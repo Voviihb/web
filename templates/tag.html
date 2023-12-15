@@ -1,8 +1,9 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
-<h1>Tag: {{ tag }}</h1>
+<h1>{% trans "Tag:" %} {{ tag }}</h1>
 
 {% for question in questions %}
 {% include 'components/question_item.html' %}

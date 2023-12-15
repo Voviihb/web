@@ -1,14 +1,15 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
 {% load bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 
-<h1 class="my-2">New question</h1>
+<h1 class="my-2">{% trans "New question" %}</h1>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary button-ask">Ask!</button>
+    <button type="submit" class="btn btn-primary button-ask">{% trans "Ask!" %}</button>
 </form>
 
 {% endblock %}

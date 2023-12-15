@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage
+from django.utils import translation
 from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import activate
 
 from app.models import Question, Answer, Tag, QuestionManager
 from django.urls import reverse, reverse_lazy
@@ -30,6 +32,12 @@ def paginate(objects, page, per_page=10):
 
 
 # Create your views here.
+def set_language(request, language):
+    activate(language)
+    request.session['django_language'] = language
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
 def not_found(request):
     return render(request, '404.html')
 

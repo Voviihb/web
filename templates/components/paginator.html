@@ -1,9 +1,11 @@
 {% load static %}
+{% load i18n %}
+
 <div class="row mb-3">
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group me-2" role="group" aria-label="First group">
             <a href="?page={{ 1 }}">
-                <button type="button" class="btn btn-outline-secondary">First</button>
+                <button type="button" class="btn btn-outline-secondary">{% trans "First" %}</button>
             </a>
         </div>
         <div class="btn-group me-2" role="group" aria-label="Second group">
@@ -32,7 +34,7 @@
         </div>
         <div class="btn-group" role="group" aria-label="Third group">
             <a href="?page={{ total_pages }}">
-                <button type="button" class="btn btn-outline-secondary">Last</button>
+                <button type="button" class="btn btn-outline-secondary">{% trans "Last" %}</button>
             </a>
         </div>
     </div>

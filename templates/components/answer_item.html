@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <div class="row answer">
     <div class="col-3 my-auto">
         {% if answer.author.userprofile.avatar%}
@@ -37,7 +39,7 @@
                            checked
                            {% endif %}
                     >
-                    <label class="form-check-label" for="flexCheck">Correct answer</label>
+                    <label class="form-check-label" for="flexCheck">{% trans "Correct answer" %}</label>
                 </div>
             </div>
         </div>

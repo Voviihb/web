@@ -1,21 +1,31 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from app.models import UserProfile, Question, Tag, Answer
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(min_length=4)
-    password = forms.CharField(min_length=6, widget=forms.PasswordInput)
+    username = forms.CharField(min_length=4, label=_('Username'))
+    password = forms.CharField(min_length=6, widget=forms.PasswordInput, label=_('Password'))
 
 
 class RegisterForm(UserCreationForm):
     password1 = forms.CharField(
-        label="Password",
+        label=_('Password'),
         strip=False,
         widget=forms.PasswordInput(),
         min_length=6
+    )
+    password2 = forms.CharField(
+        label=_('Password confirmation')
+    )
+    username = forms.CharField(
+        label=_('Username')
+    )
+    email = forms.CharField(
+        label=_('Email address')
     )
 
     class Meta:
@@ -35,8 +45,10 @@ class RegisterForm(UserCreationForm):
 
 
 class UserProfileForm(UserChangeForm):
-    email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    avatar = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={'class': 'form-control'}),
+                             label=_('Email address'))
+    avatar = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control'}),
+                              label=_('Avatar'))
 
     class Meta:
         model = User
@@ -56,16 +68,16 @@ class UserProfileForm(UserChangeForm):
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
-        label='Old Password',
+        label=_('Old Password'),
         strip=False,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'current-password'}),
     )
     new_password1 = forms.CharField(
-        label='New Password',
+        label=_('New Password'),
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
     )
     new_password2 = forms.CharField(
-        label='Confirm New Password',
+        label=_('Confirm New Password'),
         strip=False,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
     )
@@ -87,20 +99,20 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
 class AskForm(forms.ModelForm):
     tags = forms.CharField(
-        label="Enter tags (', '-separated)",
+        label=_("Enter tags (', '-separated)"),
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
 
     title = forms.CharField(
-        label="Title",
+        label=_("Title"),
         strip=True,
         required=True,
         min_length=10
     )
 
     content = forms.CharField(
-        label="Describe your question",
+        label=_("Describe your question"),
         strip=True,
         required=True,
         min_length=20,
@@ -114,7 +126,7 @@ class AskForm(forms.ModelForm):
 
 class AnswerForm(forms.ModelForm):
     content = forms.CharField(
-        label="Put your answer here",
+        label=_("Put your answer here"),
         strip=True,
         required=True,
         min_length=20,
