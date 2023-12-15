@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-15 18:33+0300\n"
+"POT-Creation-Date: 2023-12-15 22:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,6 @@ msgid "Avatar"
 msgstr "Аватар"
 
 #: .\app\forms.py:71
-
 msgid "Old Password"
 msgstr "Старый пароль"
 
@@ -50,7 +49,6 @@ msgid "New Password"
 msgstr "Новый пароль"
 
 #: .\app\forms.py:80
-
 msgid "Confirm New Password"
 msgstr "Подтверждение нового пароля"
 
@@ -167,9 +165,13 @@ msgstr "Войти"
 msgid "Register new account"
 msgstr "Зарегистрировать аккаунт"
 
-#: .\templates\question.html:32
+#: .\templates\question.html:33
 msgid "Answer!"
 msgstr "Ответить!"
+
+#: .\templates\question.html:38
+msgid "You need to log in to answer"
+msgstr "Вы должны авторизоваться для ответа на вопрос"
 
 #: .\templates\settings.html:13
 msgid "Current image:"

@@ -25,6 +25,7 @@
 
 {% block additional %}
 <hr class="mb-1">
+{% if request.user.is_authenticated %}
 <div class="row">
     <form method="post">
     {% csrf_token %}
@@ -32,4 +33,9 @@
     <button type="submit" class="btn btn-primary button-ask">{% trans "Answer!" %}</button>
 </form>
 </div>
+{% else %}
+<div class="row">
+    <p>{% trans "You need to log in to answer" %}</p>
+</div>
+{% endif %}
 {% endblock %}
