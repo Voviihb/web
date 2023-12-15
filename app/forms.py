@@ -19,7 +19,8 @@ class RegisterForm(UserCreationForm):
         min_length=6
     )
     password2 = forms.CharField(
-        label=_('Password confirmation')
+        label=_('Password confirmation'),
+        widget=forms.PasswordInput(),
     )
     username = forms.CharField(
         label=_('Username')
