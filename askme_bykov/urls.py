@@ -34,8 +34,8 @@ urlpatterns = [
     path('404', views.not_found, name="not_found"),
     path('like_question', views.like_question, name="like_question"),
     path('like_answer', views.like_answer, name="like_answer"),
-    path('correct_answer', views.correct_answer, name="correct_answer")
-
+    path('correct_answer', views.correct_answer, name="correct_answer"),
+    path('set-language/<str:language>/', views.set_language, name='set_language'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

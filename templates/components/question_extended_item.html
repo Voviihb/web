@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <div class="row question-extended">
     <div class="col-3 ">
         <div class="d-flex justify-content-center col-10">
@@ -33,7 +35,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                Tags:
+                {% trans "Tags:" %}
                 {% for tag in question.tags.all %}
                 <span class="mx-1"> <a href="{% url 'tag' tag %}"> {{ tag }} </a> </span>
                 {% endfor %}

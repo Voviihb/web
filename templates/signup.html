@@ -1,13 +1,14 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
 {% load bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 
-<h1>Registration</h1>
+<h1>{% trans "Registration" %}</h1>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary button-login my-3">Register</button>
+    <button type="submit" class="btn btn-primary button-login my-3">{% trans "Register" %}</button>
 </form>
 {% endblock %}

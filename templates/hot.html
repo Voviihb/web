@@ -1,13 +1,14 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="row">
-    <div class="col-6">
-        <h1>Hot questions</h1>
+    <div class="col-8">
+        <h1>{% trans "Hot questions" %}</h1>
     </div>
-    <div class="col-6 d-flex bd-highlight">
-        <a href="{% url 'index' %}" class="link-primary top-link ms-auto my-auto"><h2>New questions</h2></a>
+    <div class="col-4 d-flex bd-highlight">
+        <a href="{% url 'index' %}" class="link-primary top-link ms-auto my-auto"><h2>{% trans "New questions" %}</h2></a>
     </div>
 </div>
 

@@ -1,24 +1,25 @@
 {% extends request.user.is_authenticated|yesno:'layouts/base.html,layouts/base_no_login.html' %}
 {% load static %}
 {% load bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
-<h1>Settings</h1>
+<h1>{% trans "Settings" %}</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form user_form exclude="password" %}
     {% if request.user.userprofile.avatar %}
     <div>
-        <p>Current image:</p>
+        <p>{% trans "Current image:" %}</p>
         <img class="avatar-image" src="{{ request.user.userprofile.avatar.url }}" alt="Profile Avatar">
     </div>
     {% endif %}
-    <button type="submit" class="btn btn-primary button-login my-3">Save</button>
+    <button type="submit" class="btn btn-primary button-login my-3">{% trans "Save" %}</button>
 </form>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form password_form %}
-    <button type="submit" class="btn btn-primary button-login my-3">Change password</button>
+    <button type="submit" class="btn btn-primary button-login my-3">{% trans "Change password" %}</button>
 </form>
 
 {% endblock %}
